@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#03050b">
+    <meta name="description" content="Neural Afrika — Interface cognitive immersive pour maîtriser la richesse culturelle du Tchad et de l'Afrique.">
+    <title>FDA AFRIKA | Interface Cognitive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<button class="mob-toggle" id="mobToggle"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div id="toastWrap"></div>
+
+<div class="app-wrap">
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-wrap">
+            <div class="logo-hexagon"><i class="fas fa-microchip"></i></div>
+            <div>
+                <div class="logo-name">FDA AFRIKA</div>
+                <div class="logo-sub">TCHAD·CORE</div>
+            </div>
+            <div class="badge-premium"><i class="fas fa-crown"></i> FDA</div>
+        </div>
+        <nav class="nav-section">
+            <div class="nav-label">NAVIGATION</div>
+            <button class="nav-btn active" data-page="dashboard"><i class="fas fa-layer-group"></i> DASHBOARD</button>
+            <button class="nav-btn" data-page="quiz"><i class="fas fa-gamepad"></i> TEST DE COMPÉTENCES <span class="badge-count" id="quizCount">0</span></button>
+            <button class="nav-btn" data-page="review"><i class="fas fa-brain"></i> RÉVISION <span class="badge-count" id="reviewCount">0</span></button>
+            <button class="nav-btn" data-page="library"><i class="fas fa-database"></i> BIBLIOTHÈQUE</button>
+            <button class="nav-btn" data-page="add"><i class="fas fa-plus-circle"></i> CRÉER CARTE</button>
+            <button class="nav-btn" data-page="explore"><i class="fas fa-globe-africa"></i> EXPLORER</button>
+            <button class="nav-btn" data-page="stats"><i class="fas fa-chart-pie"></i> STATISTIQUES</button>
+        </nav>
+        <div class="streak-pod">
+            <div style="font-size:1.5rem;">🔥</div>
+            <div class="streak-num" id="streakVal">0</div>
+            <div class="streak-label">JOURS DE SÉRIE</div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <section id="dashboard" class="page active">
+            <div class="page-header">
+                <h1 class="page-title">TABLEAU DE BORD</h1>
+                <p class="page-subtitle">Synchronisation culturelle — Tchad & Afrique</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-icon"><i class="fas fa-microchip"></i></div><div><div class="stat-label">Cartes encodées</div><div class="stat-value" id="statTotal">0</div></div></div>
+                <div class="stat-card"><div class="stat-icon pink"><i class="fas fa-hourglass-half"></i></div><div><div class="stat-label">Révisions dues</div><div class="stat-value" id="statDue">0</div></div></div>
+                <div class="stat-card"><div class="stat-icon green"><i class="fas fa-chart-simple"></i></div><div><div class="stat-label">Maîtrise</div><div class="stat-value" id="statMastery">0%</div></div></div>
+                <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-crown"></i></div><div><div class="stat-label">Rang Neural</div><div class="stat-value" id="statRank">INITIÉ</div></div></div>
+            </div>
+        </section>
+
+        <section id="add" class="page">
+            <div class="page-header">
+                <h1 class="page-title">CRÉER CARTE</h1>
+                <p class="page-subtitle">Encodez un nouveau savoir culturel</p>
+            </div>
+            <div class="glass-panel">
+                <form id="cardForm">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-question"></i> QUESTION</label>
+                        <input type="text" id="frontInput" class="form-input" placeholder="Ex: Quelle est la capitale du Tchad ?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-lightbulb"></i> RÉPONSE</label>
+                        <textarea id="backInput" rows="4" class="form-textarea" placeholder="Ex: N'Djaména..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-upload"></i> ENCODER</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="library" class="page">
+            <div class="page-header">
+                <h1 class="page-title">BIBLIOTHÈQUE</h1>
+                <p class="page-subtitle" id="libSubtitle">0 carte encodée</p>
+            </div>
+            <div id="libraryGrid" class="library-grid"></div>
+        </section>
+
+        <section id="quiz" class="page">
+            <div class="page-header">
+                <h1 class="page-title">TEST DE COMPÉTENCES</h1>
+                <p class="page-subtitle">Évaluez vos connaissances sur le Tchad et l'Afrique</p>
+            </div>
+            <div id="quizContainer"></div>
+        </section>
+
+        <section id="review" class="page">
+            <div class="page-header">
+                <h1 class="page-title">RÉVISION</h1>
+                <p class="page-subtitle">Algorithme de répétition espacée</p>
+            </div>
+            <div id="reviewContainer" class="review-stage"></div>
+        </section>
+
+        <section id="explore" class="page">
+            <div class="page-header">
+                <h1 class="page-title">EXPLORER</h1>
+                <p class="page-subtitle">Découvrez les connaissances préchargées</p>
+            </div>
+            <div id="exploreGrid" class="explore-grid"></div>
+        </section>
+
+        <section id="stats" class="page">
+            <div class="page-header">
+                <h1 class="page-title">STATISTIQUES</h1>
+                <p class="page-subtitle">Visualisation de votre progression</p>
+            </div>
+            <div class="glass-panel">
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-icon"><i class="fas fa-layer-group"></i></div><div><div class="stat-label">Total</div><div class="stat-value" id="st_total">0</div></div></div>
+                    <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-trophy"></i></div><div><div class="stat-label">Maîtrisées</div><div class="stat-value" id="st_mastered">0</div></div></div>
+                </div>
+                <canvas id="statsChart" height="250" style="max-width:300px;margin:0 auto;display:block;"></canvas>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
